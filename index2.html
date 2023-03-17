@@ -27,17 +27,32 @@
                 const newImg = document.createElement('img');
                 newImg.src = 'img/01.png';
                 newImg.style = 'position:absolute; width: 50px; height: 50px;';
-                let x,y;
-                y=Math.random()*window.innerWidth;
-                x=Math.random()*window.innerHeight;
-                newImg.style.top = `${x-25}px`;
-                newImg.style.left = `${y-25}px`;
+                let x, y;
+                y = Math.random() * window.innerWidth;
+                x = Math.random() * window.innerHeight;
+                newImg.style.top = `${x - 25}px`;
+                newImg.style.left = `${y - 25}px`;
                 imgarray[cnt] = newImg;
                 target[cnt] = imgarray[cnt - 1];
                 cnt++;
                 document.body.appendChild(newImg);
 
             }
+        })
+
+        document.addEventListener('click', function (event) {
+            const newImg = document.createElement('img');
+            newImg.src = 'img/01.png';
+            newImg.style = 'position:absolute; width: 50px; height: 50px;';
+            let x, y;
+            y = Math.random() * window.innerWidth;
+            x = Math.random() * window.innerHeight;
+            newImg.style.top = `${x - 25}px`;
+            newImg.style.left = `${y - 25}px`;
+            imgarray[cnt] = newImg;
+            target[cnt] = imgarray[cnt - 1];
+            cnt++;
+            document.body.appendChild(newImg);
         })
         var targetVector = [0, 0];
         var currentVector = targetVector;
@@ -68,21 +83,22 @@
                     currentVector[0] = Math.round(currentVector[0] * 0.9 + targetVector[0] * .1);//(Number(x) * 0.9 + Number(tx) * 0.1)
                     currentVector[1] = Math.round(currentVector[1] * 0.9 + targetVector[1] * .1);//(Number(y) * 0.9 + Number(ty) * 0.1);
                     // console.log("adjust:" + i.toString() + "," + currentVector[0] + "," + currentVector[1]);
-                    
-                     let angle = Math.atan2(currentVector[0] - targetVector[0], currentVector[1] - targetVector[1]) * 180 / Math.PI;
-                    angle=angle-90;
-                     imgarray[i].style.transform = 'rotate(' + angle + 'deg)';
+
+                    let angle = Math.atan2(currentVector[0] - targetVector[0], currentVector[1] - targetVector[1]) * 180 / Math.PI;
+                    angle = angle - 90;
+                    imgarray[i].style.transform = 'rotate(' + angle + 'deg)';
                     console.log(angle);
-                    if(dist(currentVector,targetVector)>20){
+                    imgarray[i].style.opacity = 1-(i/(imgarray.length-1));
+                    if (dist(currentVector, targetVector) > 5) {
                         setPOS(imgarray[i], currentVector);
                     }
-                }, 10 * i);
+                }, 1 * i);
 
             }
 
         }, 10);
 
-        function dist(vect1,vect2) {
+        function dist(vect1, vect2) {
             return Math.round(Math.pow(Math.pow(vect1[0] - vect2[0], 2) + Math.pow(vect1[1] - vect2[1], 2), 0.5));
         }
 
